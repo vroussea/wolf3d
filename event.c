@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 18:48:41 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/20 16:52:33 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/20 21:26:02 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@ int	key_funct(int keycode, t_env *env)
 {
 	if (keycode == 53)
 		quit_funct(env);
+	if (keycode == 69)
+		env->smap += (env->smap < 90? 12 : 0);
+	if (keycode == 78)
+		env->smap -= (env->smap > 20 ? 12 : 0);
 //	if (keycode == 126 || keycode == 125)
 	//	env->move[1] += (keycode == 126 ? 10 / env->zoom : -(10 / env->zoom));
+	caller(env);
 	return (1);
 }
 

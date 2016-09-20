@@ -6,33 +6,46 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:59:08 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/20 19:14:05 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/20 21:20:30 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include <stdlib.h>
 
-void	minimap(t_env *env)
+/*static void	beta_char(t_env *env)
+{
+
+}*/
+
+static void	pixel_grid(t_env *env, int i, int j)
+{
+	int	size;
+
+	size = env->smap;
+	if (i % size != 0 && j % size != 0)
+	{
+		if (env->map[(int)((i - size) / size)][(int)(j / size)] == 1)
+			pixel(j - (size - 10), i - (size - 10), ((i + j) % 2 == 0 ? 0x08FFFFFF : 0x08333333), env);
+		else
+			pixel(j - (size - 10), i - (size - 10), ((i + j) % 2 == 0 ? 0x08333333 : 0x08666666), env);
+	}
+}
+
+void		minimap(t_env *env)
 {
 	int		i;
 	int		j;
+	int		size;
 
-	i = 11;
-	while (env->map[(int)(i / 10) - 1] != NULL)
+	size = env->smap;
+	i = 1 + size;
+	while (env->map[(int)((i - size) / size)] != NULL)
 	{
-		j = 11;
-		while ((int)(j / 10) - 1 < env->map[0][0])
-		{
-			if (i % 10 != 0 && j % 10 != 0)
-			{
-				if (env->map[(int)(i / 10) - 1][(int)(j / 10)] == 1)
-					pixel(j, i, 0x08FFFFFF, env);
-				else
-					pixel(j, i, 0x08666666, env);
-			}
-			j++;
-		}
+		j = 1 + size;
+		while ((int)((j++ - size) / size) < env->map[0][0])
+			pixel_grid(env, i, (j - 1));
 		i++;
 	}
+//	beta_char(env);
 }

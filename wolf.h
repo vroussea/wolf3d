@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:56:19 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/20 18:58:01 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/20 21:13:51 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ typedef	struct	s_env
 	int		sizel;
 	int		pos_x;
 	int		pos_y;
+	int		smap;
 }				t_env;
 
+void			caller(t_env *env);
 int				quit_funct(t_env *env);
 int				key_funct(int keycode, t_env *env);
 //void			text(t_env *env);

@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:40:59 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/20 19:02:59 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/20 21:24:33 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 #include <mlx.h>
 #include <stdlib.h>
 
-static void	caller(t_env *env)
+void		caller(t_env *env)
 {
-//	mlx_hook(env->win, 6, 0, motion_funct, env);
-//	mlx_hook(env->win, 4, 0, zoom_funct, env);
-	mlx_hook(env->win, 2, 0, key_funct, env);
-	mlx_hook(env->win, 17, 0, quit_funct, env);
+	ft_bzero(env->meml, env->sizel * env->sy);
 	minimap(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 1, 1);
-	mlx_loop(env->mlx);
 }
 
 static void	init_val(t_env *env, char *file)
@@ -51,8 +47,12 @@ static void	init_val(t_env *env, char *file)
 	}
 	env->pos_x = 0;
 	env->pos_y = 0;
+	env->smap = 20;
 	env->meml = mlx_get_data_addr(env->img, &bpp, &(env->sizel), &edan);
+	mlx_hook(env->win, 2, 0, key_funct, env);
+	mlx_hook(env->win, 17, 0, quit_funct, env);
 	caller(env);
+	mlx_loop(env->mlx);
 }
 
 int			main(int argc, char **argv)
@@ -60,12 +60,12 @@ int			main(int argc, char **argv)
 	t_env	*env;
 
 	env = (t_env *)ft_memalloc(sizeof(t_env));
-	env->sx = 750;
-	env->sy = 600;
+	env->sx = 1900;
+	env->sy = 1080;
 	if (argc < 2 || !(env->mlx = mlx_init()) ||
 		!(env->win = mlx_new_window(env->mlx, env->sx, env->sy, "Wolf3D")) ||
 		!(env->img = mlx_new_image(env->mlx, env->sx, env->sy)))
-		ft_putendl("Error");
+		ft_putendl("Error : Please enter valid map file.");
 	else
 		init_val(env, argv[1]);
 	return (0);
