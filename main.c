@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:40:59 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/20 21:24:33 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/21 21:21:30 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ static void	init_val(t_env *env, char *file)
 	env->pos_x = 0;
 	env->pos_y = 0;
 	env->smap = 20;
+	if (start_loc(env, 0, 0) == 0)
+	{
+		ft_putendl("No starting location on map");
+		quit_funct(env);
+	}
+	env->angle = 0;
 	env->meml = mlx_get_data_addr(env->img, &bpp, &(env->sizel), &edan);
 	mlx_hook(env->win, 2, 0, key_funct, env);
 	mlx_hook(env->win, 17, 0, quit_funct, env);
