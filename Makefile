@@ -6,11 +6,11 @@
 #    By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/24 09:55:27 by vroussea          #+#    #+#              #
-#    Updated: 2016/09/21 20:34:59 by vroussea         ###   ########.fr        #
+#    Updated: 2016/09/22 22:15:20 by vroussea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =		wolf3D
+EXE =		wolf3d
 INCLUDES =	libft/libft.a
 HEADER =	wolf.h
 MKINC =		make -C libft/
@@ -20,11 +20,11 @@ CFLAGS =	-Wall -Wextra -Werror
 SOURCES =	main.c file_reader.c event.c minimap.c draw.c line.c tools.c
 OBJS =		$(SOURCES:.c=.o)
 
-all :		$(NAME)
-$(NAME) :	$(OBJS) $(HEADER) Makefile
+all :		$(EXE)
+$(EXE) :	$(OBJS) $(HEADER) Makefile
 			$(MKINC)
 			$(CC) $(CFLAGS) -c $(SOURCES)
-			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(INCLUDES) $(MLX)
+			$(CC) $(CFLAGS) -o $(EXE) $(OBJS) $(INCLUDES) $(MLX)
 norm :
 			norminette $(SOURCES) $(HEADER)
 meteo :
@@ -33,5 +33,5 @@ clean :
 			-rm -f $(OBJS)
 fclean :	clean
 			$(MKINC) fclean
-			-rm -f $(NAME)
+			-rm -f $(EXE)
 re :		fclean all

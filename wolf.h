@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:56:19 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/21 21:14:59 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/22 19:16:39 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int				file_reader(char *file, int ***map);
 void			minimap(t_env *env);
 void			line(t_pt pt1, t_pt pt2, t_env *env);
 int				start_loc(t_env *env, int ti, int tj);
+void			collisions(t_env *env, int keycode);
 
 #endif
