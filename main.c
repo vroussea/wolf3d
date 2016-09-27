@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:40:59 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/21 21:21:30 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/27 18:36:27 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ static void	init_val(t_env *env, char *file)
 		j = 1;
 		while (j <= env->map[i][0])
 		{
+			if (env->map[i][j] >= 0)
+				ft_putchar(' ');
 			ft_putnbr(env->map[i][j]);
+			ft_putchar(' ');
 			j++;
 		}
 		ft_putchar('\n');

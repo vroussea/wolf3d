@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 18:48:41 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/22 21:27:27 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/27 19:49:25 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,52 +15,26 @@
 #include <stdlib.h>
 #include <math.h>
 
-static void	search_start(t_env *env, int *ti, int *tj)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	*ti = 0;
-	while (env->map[*ti] != NULL)
-	{
-		*tj = 1;
-		while (*tj <= env->map[0][0])
-		{
-			if (env->map[*ti][*tj] == 2)
-				return ;
-			if (env->map[*ti][*tj] == 1 && i == 0 && j == 0)
-			{
-				i = *ti;
-				j = *tj;
-			}
-			(*tj)++;
-		}
-		(*ti)++;
-	}
-	*ti = i;
-	*tj = j;
-}
-
 static void	zoom(t_env *env, int keycode)
 {
-	int	i;
-	int	j;
-
-	search_start(env, &i, &j);
-	env->move[1] -= env->smap / 2 + env->smap * i + 10;
-	env->move[0] -= env->smap / 2 + env->smap * (j - 1) + 10;
-	env->move[1] /= env->smap;
-	env->move[0] /= env->smap;
 	if (keycode == 69)
 		env->smap += (env->smap < 90 ? 12 : 0);
 	if (keycode == 78)
 		env->smap -= (env->smap > 20 ? 12 : 0);
-	env->move[1] *= env->smap;
-	env->move[0] *= env->smap;
-	env->move[1] += env->smap / 2 + env->smap * i + 10;
-	env->move[0] += env->smap / 2 + env->smap * (j - 1) + 10;
+}
+
+static void	move(t_env *env, int keycode)
+{
+	if (keycode == 125)
+	{
+		env->move[1] += 0.075 * cos(env->angle);
+		env->move[0] += 0.075 * sin(env->angle);
+	}
+	else if (keycode == 126)
+	{
+		env->move[1] -= 0.075 * cos(env->angle);
+		env->move[0] -= 0.075 * sin(env->angle);
+	}
 }
 
 int			key_funct(int keycode, t_env *env)
@@ -73,17 +47,10 @@ int			key_funct(int keycode, t_env *env)
 		zoom(env, keycode);
 	env->angle += (keycode == 123 ? 0.15 : 0);
 	env->angle += (keycode == 124 ? -0.15 : 0);
+//	if (keycode == 125 || keycode == 126)
+//		collisions(env, keycode);
 	if (keycode == 125 || keycode == 126)
-		collisions(env, keycode);
-	/*	env->move[1] += 0.05 * cos(env->angle) * env->smap;
-		env->move[0] += 0.05 * sin(env->angle) * env->smap;
-	}
-	if (keycode == 126)
-	{
-		collisions(env, keycode);
-		env->move[1] -= 0.05 * cos(env->angle) * env->smap;
-		env->move[0] -= 0.05 * sin(env->angle) * env->smap;
-	}*/
+		move(env, keycode);
 	caller(env);
 	return (1);
 }
