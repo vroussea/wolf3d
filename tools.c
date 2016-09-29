@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 18:40:34 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/27 18:37:45 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/29 21:07:16 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
   {
   mlx_string_put(env->mlx, env->win, 11, 1, 0, "Quit : Esc");
   mlx_string_put(env->mlx, env->win, 10, 0, 0xDDDDDD, "Quit : Esc");
-  mlx_string_put(env->mlx, env->win, 11, 21, 0, "Move : arrows");
-  mlx_string_put(env->mlx, env->win, 10, 20, 0xDDDDDD, "Move : arrows");
+  mlx_string_put(env->mlx, env->win, 11, 21, 0, "pos : arrows");
+  mlx_string_put(env->mlx, env->win, 10, 20, 0xDDDDDD, "pos : arrows");
   mlx_string_put(env->mlx, env->win, 11, 41, 0, "Zoom : mouse or / *");
   mlx_string_put(env->mlx, env->win, 10, 40, 0xDDDDDD, "Zoom : mouse or / *");
   mlx_string_put(env->mlx, env->win, 11, 61, 0, "Iteration : page up down");
@@ -63,9 +63,9 @@
 
   void	special_text(t_env *env)
   {
-  mlx_string_put(env->mlx, env->win, env->sx - 184, 1, 0, "Move end:");
-  mlx_string_put(env->mlx, env->win, env->sx - 185, 0, 0xDDDDDD, "Move end:");
-  if (env->is_move == 1)
+  mlx_string_put(env->mlx, env->win, env->sx - 184, 1, 0, "pos end:");
+  mlx_string_put(env->mlx, env->win, env->sx - 185, 0, 0xDDDDDD, "pos end:");
+  if (env->is_pos == 1)
   {
   mlx_string_put(env->mlx, env->win, env->sx - 32, 1, 0x55BB55, "ON");
   mlx_string_put(env->mlx, env->win, env->sx - 33, 0, 0x00FF00, "ON");
@@ -92,8 +92,12 @@ mlx_string_put(env->mlx, env->win, env->sx - 33, 20, 0xFF0000, "OFF");
 
 static int	fill_loc(t_env *env, int i, int j)
 {
-	env->move[1] = 0.5 +  i;
-	env->move[0] = 0.5 + (j - 1);
+	env->pos[1] = 0.5 +  i;
+	env->pos[0] = 0.5 + (j - 1);
+	env->dir[1] = cos(env->angle) * (-1);
+	env->dir[0] = sin(env->angle) * (-1);
+	env->plane[0] = cos(env->angle) * (-0.5);
+	env->plane[1] = sin(env->angle) * (-0.5);
 	return (1);
 }
 
@@ -131,8 +135,8 @@ void		collisions(t_env *env, int keycode)
 
 	add_x = (0.05 * sin(env->angle));
 	add_y = (0.05 * cos(env->angle));
-	if (env->map[(int)(env->move[0] + add_x)][(int)env->move[1]] != 0)
-		env->move[0] += (keycode == 125 ? add_x: -add_x);
-	if (env->map[(int)env->move[0]][(int)(env->move[1] + add_y)] != 0)
-		env->move[1] += (keycode == 125 ? add_y : -add_y);
+	if (env->map[(int)(env->pos[0] + add_x)][(int)env->pos[1]] != 0)
+		env->pos[0] += (keycode == 125 ? add_x: -add_x);
+	if (env->map[(int)env->pos[0]][(int)(env->pos[1] + add_y)] != 0)
+		env->pos[1] += (keycode == 125 ? add_y : -add_y);
 }

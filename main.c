@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:40:59 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/27 18:36:27 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/29 15:42:51 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	init_val(t_env *env, char *file)
 		quit_funct(env);
 	}
 	i = 0;
+	// sortie map
 	while (env->map[i] != NULL)
 	{
 		j = 1;
@@ -48,15 +49,13 @@ static void	init_val(t_env *env, char *file)
 		ft_putchar('\n');
 		i++;
 	}
-	env->pos_x = 0;
-	env->pos_y = 0;
 	env->smap = 20;
+	env->angle = 0;
 	if (start_loc(env, 0, 0) == 0)
 	{
 		ft_putendl("No starting location on map");
 		quit_funct(env);
 	}
-	env->angle = 0;
 	env->meml = mlx_get_data_addr(env->img, &bpp, &(env->sizel), &edan);
 	mlx_hook(env->win, 2, 0, key_funct, env);
 	mlx_hook(env->win, 17, 0, quit_funct, env);
@@ -69,8 +68,8 @@ int			main(int argc, char **argv)
 	t_env	*env;
 
 	env = (t_env *)ft_memalloc(sizeof(t_env));
-	env->sx = 1900;
-	env->sy = 1080;
+	env->sx = 1280;
+	env->sy = 720;
 	if (argc < 2 || !(env->mlx = mlx_init()) ||
 		!(env->win = mlx_new_window(env->mlx, env->sx, env->sy, "Wolf3D")) ||
 		!(env->img = mlx_new_image(env->mlx, env->sx, env->sy)))

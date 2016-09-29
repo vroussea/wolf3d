@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:56:19 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/22 19:16:39 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/09/29 15:41:32 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef	struct	s_env
 	char	*meml;
 	int		**map;
 	int		sizel;
-	int		pos_x;
-	int		pos_y;
-	double	move[2];
+	double	pos[2];
+	double	dir[2];
+	double	plane[2];
 	double	angle;
 	int		smap;
 }				t_env;
