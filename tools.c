@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 18:40:34 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/29 21:07:16 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/02 17:18:50 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,41 +90,41 @@ mlx_string_put(env->mlx, env->win, env->sx - 33, 20, 0xFF0000, "OFF");
 }
 }*/
 
-static int	fill_loc(t_env *env, int i, int j)
+static int	fill_loc(t_env *env, int y, int x)
 {
-	env->pos[1] = 0.5 +  i;
-	env->pos[0] = 0.5 + (j - 1);
-	env->dir[1] = cos(env->angle) * (-1);
-	env->dir[0] = sin(env->angle) * (-1);
-	env->plane[0] = cos(env->angle) * (-0.5);
-	env->plane[1] = sin(env->angle) * (-0.5);
+	env->pos_x = 0.5 + (x - 1);
+	env->pos_y = 0.5 + y;
+	env->dir_x = cos(env->angle) * (-1);
+	env->dir_y = sin(env->angle) * (-1);
+	env->plane_y = cos(env->angle) * (-0.66);
+	env->plane_x = sin(env->angle) * (-0.66);
 	return (1);
 }
 
-int			start_loc(t_env *env, int ti, int tj)
+int			start_loc(t_env *env, int ty, int tx)
 {
-	int	i;
-	int	j;
+	int	y;
+	int	x;
 
-	i = 0;
-	while (env->map[i] != NULL)
+	y = 0;
+	while (env->map[y] != NULL)
 	{
-		j = 1;
-		while (j <= env->map[0][0])
+		x = 1;
+		while (x <= env->map[0][0])
 		{
-			if (env->map[i][j] == -1)
-				return (fill_loc(env, i, j));
-			if (env->map[i][j] == 0 && ti == 0 && tj == 0)
+			if (env->map[y][x] == -1)
+				return (fill_loc(env, y, x));
+			if (env->map[y][x] == 0 && ty == 0 && tx == 0)
 			{
-				ti = i;
-				tj = j;
+				ty = y;
+				tx = x;
 			}
-			j++;
+			x++;
 		}
-		i++;
+		y++;
 	}
-	if (ti != 0 && tj != 0)
-		return (fill_loc(env, ti, tj));
+	if (ty != 0 && tx != 0)
+		return (fill_loc(env, ty, tx));
 	return (0);
 }
 
@@ -135,8 +135,8 @@ void		collisions(t_env *env, int keycode)
 
 	add_x = (0.05 * sin(env->angle));
 	add_y = (0.05 * cos(env->angle));
-	if (env->map[(int)(env->pos[0] + add_x)][(int)env->pos[1]] != 0)
-		env->pos[0] += (keycode == 125 ? add_x: -add_x);
-	if (env->map[(int)env->pos[0]][(int)(env->pos[1] + add_y)] != 0)
-		env->pos[1] += (keycode == 125 ? add_y : -add_y);
+	if (env->map[(int)(env->pos_x + add_x)][(int)env->pos_y] != 0)
+		env->pos_x += (keycode == 125 ? add_x: -add_x);
+	if (env->map[(int)env->pos_x][(int)(env->pos_y + add_y)] != 0)
+		env->pos_y += (keycode == 125 ? add_y : -add_y);
 }

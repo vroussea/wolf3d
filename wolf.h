@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:56:19 by vroussea          #+#    #+#             */
-/*   Updated: 2016/09/29 15:41:32 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/02 16:52:45 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ typedef	struct	s_env
 	char	*meml;
 	int		**map;
 	int		sizel;
-	double	pos[2];
-	double	dir[2];
-	double	plane[2];
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 	double	angle;
 	int		smap;
 }				t_env;
@@ -49,7 +52,7 @@ void			pixel(int x, int y, int col, t_env *env);
 int				file_reader(char *file, int ***map);
 void			minimap(t_env *env);
 void			line(t_pt pt1, t_pt pt2, t_env *env);
-int				start_loc(t_env *env, int ti, int tj);
+int				start_loc(t_env *env, int ty, int tx);
 void			collisions(t_env *env, int keycode);
 
 #endif
