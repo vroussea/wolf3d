@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:56:19 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/02 16:52:45 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/02 19:37:02 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef	struct	s_env
 	int		sy;
 	void	*img;
 	char	*meml;
-	int		**map;
 	int		sizel;
+	int		**map;
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
@@ -40,6 +40,13 @@ typedef	struct	s_env
 	double	plane_y;
 	double	angle;
 	int		smap;
+	double	disnextsqr_x;
+	double	disnextsqr_y;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		side;
 }				t_env;
 
 void			caller(t_env *env);
