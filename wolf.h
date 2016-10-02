@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:56:19 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/02 19:37:02 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/02 20:31:26 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef	struct	s_env
 	int		step_x;
 	int		step_y;
 	int		side;
+	double	ray_x;
+	double	ray_y;
 }				t_env;
 
 void			caller(t_env *env);
