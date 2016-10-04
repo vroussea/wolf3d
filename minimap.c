@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:59:08 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/02 18:11:24 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/04 17:08:30 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,21 @@ static void	map_character(t_env *env)
 {
 	t_pt	pt1;
 	t_pt	pt2;
+	double	tmpplane_x;
+	double	tmpplane_y;
 
 	pt1.col = 0xFF0000;
 	pt2.col = 0xFF0000;
+	tmpplane_x = env->plane_x * 0.5;
+	tmpplane_y = env->plane_y * 0.5;
 	pt1.x = env->pos_x * env->smap + 10;
 	pt1.y = env->pos_y * env->smap + 10;
 	ping(env, pt1);
-	pt2.x = (env->dir_x * 0.5 + env->pos_x - env->plane_x * 0.5) * env->smap + 10;
-	pt2.y = (env->dir_y * 0.5 + env->pos_y + env->plane_y * 0.5) * env->smap + 10;
+	pt2.x = (env->dir_x * 0.5 + env->pos_x - tmpplane_x) * env->smap + 10;
+	pt2.y = (env->dir_y * 0.5 + env->pos_y + tmpplane_y) * env->smap + 10;
 	line(pt1, pt2, env);
-	pt2.x = (env->dir_x * 0.5 + env->pos_x + env->plane_x * 0.5) * env->smap + 10;
-	pt2.y = (env->dir_y * 0.5 + env->pos_y - env->plane_y * 0.5) * env->smap + 10;
+	pt2.x = (env->dir_x * 0.5 + env->pos_x + tmpplane_x) * env->smap + 10;
+	pt2.y = (env->dir_y * 0.5 + env->pos_y - tmpplane_y) * env->smap + 10;
 	line(pt1, pt2, env);
 	pixel(pt1.x, pt1.y, 0x000000, env);
 }

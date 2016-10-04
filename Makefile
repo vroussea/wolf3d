@@ -6,7 +6,7 @@
 #    By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/24 09:55:27 by vroussea          #+#    #+#              #
-#    Updated: 2016/09/22 22:15:20 by vroussea         ###   ########.fr        #
+#    Updated: 2016/10/04 16:06:16 by vroussea         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ MKINC =		make -C libft/
 MLX =		-lmlx -framework OpenGL -framework AppKit
 CC =		gcc
 CFLAGS =	-Wall -Wextra -Werror
-SOURCES =	main.c file_reader.c event.c minimap.c draw.c line.c tools.c
+SOURCES =	main.c file_reader.c event.c minimap.c draw.c line.c tools.c       \
+			raycaster.c
 OBJS =		$(SOURCES:.c=.o)
 
 all :		$(EXE)

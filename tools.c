@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 18:40:34 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/02 17:18:50 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/04 17:05:54 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void		collisions(t_env *env, int keycode)
 	add_x = (0.05 * sin(env->angle));
 	add_y = (0.05 * cos(env->angle));
 	if (env->map[(int)(env->pos_x + add_x)][(int)env->pos_y] != 0)
-		env->pos_x += (keycode == 125 ? add_x: -add_x);
+		env->pos_x += (keycode == 125 ? add_x : -add_x);
 	if (env->map[(int)env->pos_x][(int)(env->pos_y + add_y)] != 0)
 		env->pos_y += (keycode == 125 ? add_y : -add_y);
 }

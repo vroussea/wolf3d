@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:56:19 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/02 20:31:26 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/04 16:14:45 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef	struct	s_env
 	double	plane_y;
 	double	angle;
 	int		smap;
-	double	disnextsqr_x;
-	double	disnextsqr_y;
+	double	distnext_x;
+	double	distnext_y;
 	int		map_x;
 	int		map_y;
 	int		step_x;
@@ -63,5 +63,6 @@ void			minimap(t_env *env);
 void			line(t_pt pt1, t_pt pt2, t_env *env);
 int				start_loc(t_env *env, int ty, int tx);
 void			collisions(t_env *env, int keycode);
-
+void			raycaster(t_env *env);
+void			dda(t_env *env);
 #endif

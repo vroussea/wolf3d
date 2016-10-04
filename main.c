@@ -6,22 +6,19 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:40:59 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/02 17:06:44 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/04 20:06:19 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include <mlx.h>
 #include <stdlib.h>
-#include <stdio.h> ////////////
 
 void		caller(t_env *env)
 {
-	printf("pos x : %.2f\npos y : %.2f\n", env->pos_x, env->pos_y);
-	printf("dir x : %.2f\ndir y : %.2f\n", env->dir_x, env->dir_y);
-	printf("plane x : %.2f\nplane y : %.2f\n", env->plane_x , env->plane_y);
 	ft_bzero(env->meml, env->sizel * env->sy);
 	minimap(env);
+	raycaster(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 1, 1);
 }
 
@@ -29,31 +26,13 @@ static void	init_val(t_env *env, char *file)
 {
 	int		bpp;
 	int		edan;
-	int		i;
-	int		j;
 
 	if (!(file_reader(file, &(env->map))))
 	{
 		ft_putendl("Error Map");
 		quit_funct(env);
 	}
-	i = 0;
-	// sortie map
-	while (env->map[i] != NULL)
-	{
-		j = 1;
-		while (j <= env->map[i][0])
-		{
-			if (env->map[i][j] >= 0)
-				ft_putchar(' ');
-			ft_putnbr(env->map[i][j]);
-			ft_putchar(' ');
-			j++;
-		}
-		ft_putchar('\n');
-		i++;
-	}
-	env->smap = 20;
+	env->smap = 10;
 	env->angle = 0;
 	if (start_loc(env, 0, 0) == 0)
 	{
@@ -75,8 +54,8 @@ int			main(int argc, char **argv)
 	env->sx = 1280;
 	env->sy = 720;
 	if (argc < 2 || !(env->mlx = mlx_init()) ||
-			!(env->win = mlx_new_window(env->mlx, env->sx, env->sy, "Wolf3D")) ||
-			!(env->img = mlx_new_image(env->mlx, env->sx, env->sy)))
+		!(env->win = mlx_new_window(env->mlx, env->sx, env->sy, "Wolf3D")) ||
+		!(env->img = mlx_new_image(env->mlx, env->sx, env->sy)))
 		ft_putendl("Error : Please enter valid map file.");
 	else
 		init_val(env, argv[1]);

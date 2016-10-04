@@ -6,46 +6,59 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 15:29:18 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/02 20:30:18 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/04 22:09:09 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
+#include <math.h>
+#include <stdio.h>
 
-static void	print_wall(t_env *env)
+static void	print_wall(t_env *env, int x)
 {
-	if (side == 0) perpWallDist = (mapX - rayPosX + (1 - stepX) / 2) / rayDirX;
-	else           perpWallDist = (mapY - rayPosY + (1 - stepY) / 2) / rayDirY;
-	int lineHeight = (int)(h / perpWallDist);
+	int		height;
+	int		dist;
+	t_pt	pt1;
+	t_pt	pt2;
 
-	//calculate lowest and highest pixel to fill in current stripe
-	int drawStart = -lineHeight / 2 + h / 2;
-	if(drawStart < 0)drawStart = 0;
-	int drawEnd = lineHeight / 2 + h / 2;
-	if(drawEnd >= h)drawEnd = h - 1;
+	if (env->side == 0)
+		dist = (env->map_x - env->pos_x + (1 - env->step_x) / 2) / env->ray_x;
+	else
+		dist = (env->map_y - env->pos_y + (1 - env->step_y) / 2) / env->ray_y;
+	height = (dist == 0 ? 0 : (int)(env->sy / dist));
+	pt1.x = x;
+	pt2.x = x;
+	pt1.col = 0xFF0000;
+	pt2.col = 0xFF0000;
+	pt1.y = -height / 2 + env->sy / 2;
+	pt1.y = (pt1.y > 0 ? pt1.y : 0);
+	pt2.y = height / 2 + env->sy / 2;
+	pt2.y = (pt2.y > 0 ? pt2.y : 0);
+	line(pt1, pt2, env);
 }
 
 void		raycaster(t_env *env)
 {
 	int		x;
 	double	crtray;
-	double ray_x;
-	double ray_y;
+	double	ray_x;
+	double	ray_y;
 
-	x = 0;
-	while(x < env->sx)
-	{
-		currentray = 2 * x / (double)(env->sx) - 1;
-		ray_x = env->dir_x + env->plane_x * cameraX;
-		ray_y = env->dir_y + env->plane_y * cameraX;
+	//x = 0;
+	//while (x < env->sx)
+	//{
+		x = env->sx / 2;
+		crtray = 2 * x / (double)(env->sx) - 1;
+		ray_x = env->dir_x + env->plane_x * crtray;
+		ray_y = env->dir_y + env->plane_y * crtray;
 		env->ray_x = ray_x;
 		env->ray_y = ray_y;
-		env->distnext_x = sqrt(1 + (ray_y * ray_y) / (ray_x * ray_x));
-		env->distnext_y = sqrt(1 + (ray_x * ray_x) / (ray_y * ray_y));
+		env->distnext_x = (ray_x != 0 ? sqrt(1 + (ray_y * ray_y) / (ray_x * ray_x)) : 0);
+		env->distnext_y = (ray_y != 0 ? sqrt(1 + (ray_x * ray_x) / (ray_y * ray_y)) : 0);
 		dda(env);
-		print_wall(env);
-		x++;
-	}
+		print_wall(env, x);
+	//	x++;
+//	}
 }
 
 static void	init_dist(t_env *env, double *dist_x, double *dist_y)
@@ -70,24 +83,46 @@ static void	init_dist(t_env *env, double *dist_x, double *dist_y)
 		env->step_y = 1;
 		*dist_y = (env->map_y + 1.0 - env->pos_y) * env->distnext_y;
 	}
+	*dist_x = (*dist_x > 1000000000 ? 0 : *dist_x);
+	*dist_y = (*dist_y > 1000000000 ? 0 : *dist_y);
 }
 
-void	 	dda(t_env *env, int dist_x, int dist_y)
+void		dda(t_env *env)
 {
 	int		hit;
 	double	dist_x;
 	double	dist_y;
+	t_pt	pt1;
+	t_pt	pt2;
 
-	init_dist(env, &dist_x, &dist_y);
 	env->map_x = (int)env->pos_x;
 	env->map_y = (int)env->pos_y;
+	init_dist(env, &dist_x, &dist_y);
 	hit = 0;
-	while (hit == 0)
+	pt1.col = 0x00FF00;
+	pt2.col = 0x00FF00;
+	pt1.x = env->pos_x * env->smap + 10;
+	pt1.y = env->pos_y * env->smap + 10;
+	if (dist_x > dist_y)
 	{
-		if (dist_x < dist_y)
+		pt2.x = (dist_x * env->dir_x + env->pos_x) * env->smap + 10;
+		pt2.y = (dist_x * env->dir_y + env->pos_y) * env->smap + 10;
+	}
+	else
+	{
+		pt2.x = (dist_y * env->dir_x + env->pos_x) * env->smap + 10;
+		pt2.y = (dist_y * env->dir_y + env->pos_y) * env->smap + 10;
+	}
+	line(pt1, pt2, env);
+	while (hit < 3)
+	{
+	//	if (env->map[env->map_y][env->map_x] > 0)
+	//		hit = 1;
+		hit++;
+		if (dist_x < dist_y || env->distnext_y == 0)
 		{
 			dist_x += env->distnext_x;
-			env->map_xx += env->step_x;
+			env->map_x += env->step_x;
 			env->side = 0;
 		}
 		else
@@ -96,7 +131,12 @@ void	 	dda(t_env *env, int dist_x, int dist_y)
 			env->map_y += env->step_y;
 			env->side = 1;
 		}
-		if (worldMap[env->map_x][env->map_y] > 0)
-			hit = 1;
 	}
+	pt1.col = 0xFF00FF;
+	pt2.col = 0xFF00FF;
+	pt1.x = env->pos_x * env->smap + 10;
+	pt1.y = env->pos_y * env->smap + 10;
+	pt2.x = (env->pos_x + (dist_x) * env->step_x) * env->smap + 10;
+	pt2.y = (env->pos_y + (dist_y) * env->step_y) * env->smap + 10;
+//	line(pt1, pt2, env);
 }
