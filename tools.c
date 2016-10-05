@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 18:40:34 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/05 19:27:16 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/05 21:06:46 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,10 @@ static int	fill_loc(t_env *env, int y, int x)
 	env->pos_y = 0.5 + y;
 	env->dir_x = cos(env->angle) * (-1);
 	env->dir_y = sin(env->angle) * (-1);
-	env->plane_y = cos(env->angle) * (-0.5);
-	env->plane_x = sin(env->angle) * (-0.5);
+	env->plane_x = -env->dir_y * 0.66;
+	env->plane_y = env->dir_x * 0.66;
+	//env->plane_y = cos(env->angle) * (-0.5);
+	//env->plane_x = sin(env->angle) * (-0.5);
 	return (1);
 }
 
@@ -114,7 +116,7 @@ int			start_loc(t_env *env, int ty, int tx)
 		{
 			if (env->map[y][x] == -1)
 				return (fill_loc(env, y, x));
-			if (env->map[y][x] == 0 && ty == 0 && tx == 0)
+			if (env->map[y][x] == 0 && ty == -1 && tx == -1)
 			{
 				ty = y;
 				tx = x;
@@ -123,7 +125,7 @@ int			start_loc(t_env *env, int ty, int tx)
 		}
 		y++;
 	}
-	if (ty != 0 && tx != 0)
+	if (ty != -1 && tx != -1)
 		return (fill_loc(env, ty, tx));
 	return (0);
 }

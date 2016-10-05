@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:40:59 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/05 20:16:26 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/05 21:01:58 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	init_val(t_env *env, char *file)
 	}
 	env->smap = 10;
 	env->angle = 0;
-	if (start_loc(env, 0, 0) == 0)
+	if (start_loc(env, -1, -1) == 0)
 	{
 		ft_putendl("No starting location on map");
 		quit_funct(env);

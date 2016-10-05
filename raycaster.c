@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 15:29:18 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/05 19:24:53 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/05 21:00:27 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void		raycaster(t_env *env)
 	x = 0;
 	while (x < env->sx)
 	{
-//		x = env->sx / 2;
 		crtray = 2 * x / (double)(env->sx) - 1;
 		ray_x = env->dir_x + env->plane_x * crtray;
 		ray_y = env->dir_y + env->plane_y * crtray;
