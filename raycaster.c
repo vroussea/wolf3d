@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 15:29:18 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/05 21:00:27 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/05 22:06:18 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,20 @@ static void	print_wall(t_env *env, int x)
 	height = (int)(env->sy / dist);
 	pt1.x = x;
 	pt2.x = x;
-	pt1.col = 0xFF0000;
-	pt2.col = 0xFF0000;
+	if (env->side == 0)
+	{
+		pt1.col = (env->map_x > (int)env->pos_x > 0 ? 0xFF0000 / (env->side + 1)
+				: 0x00FF00 / (env->side + 1));
+		pt2.col = (env->map_x > (int)env->pos_x > 0 ? 0xFF0000 / (env->side + 1)
+				: 0x00FF00 / (env->side + 1));
+	}
+	else
+	{
+		pt1.col = (env->map_y > (int)env->pos_y > 0 ? 0x00FF00 / (env->side + 1)
+				: 0x0000FF / (env->side + 1));
+		pt2.col = (env->map_y > (int)env->pos_y > 0 ? 0x00FF00 / (env->side + 1)
+				: 0x0000FF / (env->side + 1));
+	}
 	pt1.y = -height / 3 + env->sy / 3;
 	pt1.y = (pt1.y > 0 ? pt1.y : 0);
 	pt2.y = height / 3 + env->sy / 3;

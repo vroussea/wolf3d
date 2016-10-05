@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:59:08 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/05 20:15:44 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/05 21:53:47 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static void	map_character(t_env *env)
 	pt1.x = env->pos_x * env->smap + 10;
 	pt1.y = env->pos_y * env->smap + 10;
 	ping(env, pt1);
-	pt2.x = (env->dir_x * 0.5 + env->pos_x - tmpplane_x) * env->smap + 10;
+	pt2.x = (env->dir_x * 0.5 + env->pos_x + tmpplane_x) * env->smap + 10;
 	pt2.y = (env->dir_y * 0.5 + env->pos_y + tmpplane_y) * env->smap + 10;
 	line(pt1, pt2, env);
-	pt2.x = (env->dir_x * 0.5 + env->pos_x + tmpplane_x) * env->smap + 10;
+	pt2.x = (env->dir_x * 0.5 + env->pos_x - tmpplane_x) * env->smap + 10;
 	pt2.y = (env->dir_y * 0.5 + env->pos_y - tmpplane_y) * env->smap + 10;
 	line(pt1, pt2, env);
 	pixel(pt1.x, pt1.y, 0x000000, env);
