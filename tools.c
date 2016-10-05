@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 18:40:34 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/04 17:05:54 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/05 19:27:16 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ static int	fill_loc(t_env *env, int y, int x)
 	env->pos_y = 0.5 + y;
 	env->dir_x = cos(env->angle) * (-1);
 	env->dir_y = sin(env->angle) * (-1);
-	env->plane_y = cos(env->angle) * (-0.66);
-	env->plane_x = sin(env->angle) * (-0.66);
+	env->plane_y = cos(env->angle) * (-0.5);
+	env->plane_x = sin(env->angle) * (-0.5);
 	return (1);
 }
 

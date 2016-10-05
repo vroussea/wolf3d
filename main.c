@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:40:59 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/04 20:06:19 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/05 20:16:26 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 void		caller(t_env *env)
 {
 	ft_bzero(env->meml, env->sizel * env->sy);
-	minimap(env);
 	raycaster(env);
+	minimap(env);
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 1, 1);
 }
 

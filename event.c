@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 18:48:41 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/02 17:19:32 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/05 19:27:40 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void	rotation(t_env *env, int keycode)
 	env->angle += (keycode == 124 ? 0.1 : 0.1 * (-1));
 	env->dir_x = cos(env->angle) * (-1);
 	env->dir_y = sin(env->angle) * (-1);
-	env->plane_y = cos(env->angle) * (-0.66);
-	env->plane_x = sin(env->angle) * (-0.66);
+	env->plane_y = cos(env->angle) * (-0.5);
+	env->plane_x = sin(env->angle) * (-0.5);
 }
 
 int			key_funct(int keycode, t_env *env)
