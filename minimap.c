@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:59:08 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/05 21:53:47 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/06 22:18:41 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,55 @@
 #include <stdlib.h>
 #include <math.h>
 
-static void	ping(t_env *env, t_pt pt1)
+static void	ping(t_env *env, t_pt *pt1)
 {
-	pixel(pt1.x + 1, pt1.y, 0xFF0000, env);
-	pixel(pt1.x - 1, pt1.y, 0xFF0000, env);
-	pixel(pt1.x, pt1.y + 1, 0xFF0000, env);
-	pixel(pt1.x, pt1.y - 1, 0xFF0000, env);
-	pixel(pt1.x + 1, pt1.y + 1, 0xFF0000, env);
-	pixel(pt1.x - 1, pt1.y - 1, 0xFF0000, env);
-	pixel(pt1.x + 1, pt1.y - 1, 0xFF0000, env);
-	pixel(pt1.x - 1, pt1.y + 1, 0xFF0000, env);
-	pixel(pt1.x + 2, pt1.y, 0xFF0000, env);
-	pixel(pt1.x - 2, pt1.y, 0xFF0000, env);
-	pixel(pt1.x, pt1.y + 2, 0xFF0000, env);
-	pixel(pt1.x, pt1.y - 2, 0xFF0000, env);
+	pixel(pt1->x + 1, pt1->y, 0xFF0000, env);
+	pixel(pt1->x - 1, pt1->y, 0xFF0000, env);
+	pixel(pt1->x, pt1->y + 1, 0xFF0000, env);
+	pixel(pt1->x, pt1->y - 1, 0xFF0000, env);
+	pixel(pt1->x + 1, pt1->y + 1, 0xFF0000, env);
+	pixel(pt1->x - 1, pt1->y - 1, 0xFF0000, env);
+	pixel(pt1->x + 1, pt1->y - 1, 0xFF0000, env);
+	pixel(pt1->x - 1, pt1->y + 1, 0xFF0000, env);
+	pixel(pt1->x + 2, pt1->y, 0xFF0000, env);
+	pixel(pt1->x - 2, pt1->y, 0xFF0000, env);
+	pixel(pt1->x, pt1->y + 2, 0xFF0000, env);
+	pixel(pt1->x, pt1->y - 2, 0xFF0000, env);
+}
+
+static void	init_values(t_env *env, t_pt *pt1)
+{
+	pt1->x = env->pos_x * env->smap + 10;
+	pt1->y = env->pos_y * env->smap + 10;
 }
 
 static void	map_character(t_env *env)
 {
-	t_pt	pt1;
-	t_pt	pt2;
+	t_pt	*pt1;
+	t_pt	*pt2;
 	double	tmpplane_x;
 	double	tmpplane_y;
 
-	pt1.col = 0xFF0000;
-	pt2.col = 0xFF0000;
+	if (!(pt1 = (t_pt *)ft_memalloc(sizeof(t_pt))))
+		quit_funct(env);
+	if (!(pt2 = (t_pt *)ft_memalloc(sizeof(t_pt))))
+		quit_funct(env);
 	tmpplane_x = env->plane_x * 0.5;
 	tmpplane_y = env->plane_y * 0.5;
-	pt1.x = env->pos_x * env->smap + 10;
-	pt1.y = env->pos_y * env->smap + 10;
+	pt1->col = 0xFF0000;
+	pt2->col = 0xFF0000;
+	init_values(env, pt1);
 	ping(env, pt1);
-	pt2.x = (env->dir_x * 0.5 + env->pos_x + tmpplane_x) * env->smap + 10;
-	pt2.y = (env->dir_y * 0.5 + env->pos_y + tmpplane_y) * env->smap + 10;
+	pt2->x = (env->dir_x * 0.5 + env->pos_x + tmpplane_x) * env->smap + 10;
+	pt2->y = (env->dir_y * 0.5 + env->pos_y + tmpplane_y) * env->smap + 10;
 	line(pt1, pt2, env);
-	pt2.x = (env->dir_x * 0.5 + env->pos_x - tmpplane_x) * env->smap + 10;
-	pt2.y = (env->dir_y * 0.5 + env->pos_y - tmpplane_y) * env->smap + 10;
+	init_values(env, pt1);
+	pt2->x = (env->dir_x * 0.5 + env->pos_x - tmpplane_x) * env->smap + 10;
+	pt2->y = (env->dir_y * 0.5 + env->pos_y - tmpplane_y) * env->smap + 10;
 	line(pt1, pt2, env);
-	pixel(pt1.x, pt1.y, 0x000000, env);
+	pixel(pt1->x, pt1->y, 0x000000, env);
+	ft_memdel((void **)&pt1);
+	ft_memdel((void **)&pt2);
 }
 
 static void	pixel_grid(t_env *env, int y, int x)

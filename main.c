@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 15:40:59 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/05 22:10:32 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/06 22:18:48 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	init_val(t_env *env, char *file)
 	int		bpp;
 	int		edan;
 
-	if (!(file_reader(file, &(env->map))))
+	if (!(file_reader(file, &(env->map))) || test_map_closed(env))
 	{
 		ft_putendl("Error Map");
 		quit_funct(env);
@@ -50,7 +50,8 @@ int			main(int argc, char **argv)
 {
 	t_env	*env;
 
-	env = (t_env *)ft_memalloc(sizeof(t_env));
+	if (!(env = (t_env *)ft_memalloc(sizeof(t_env))))
+		quit_funct(env);
 	env->sx = 1280;
 	env->sy = 720;
 	if (argc < 2 || !(env->mlx = mlx_init()) ||

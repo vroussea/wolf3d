@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 15:29:18 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/05 22:06:18 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/06 22:26:28 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,48 @@
 #include <math.h>
 #include <stdio.h>
 
+static void	color_wall(t_env *env, t_pt *pt1, t_pt *pt2)
+{
+	if (env->side == 0)
+	{
+		pt1->col = (env->map_x > (int)env->pos_x > 0 ? 0xFF0000 / (env->side + 1)
+				: 0x00FF00 / (env->side + 1));
+		pt2->col = (env->map_x > (int)env->pos_x > 0 ? 0xFF0000 / (env->side + 1)
+				: 0x00FF00 / (env->side + 1));
+	}
+	else
+	{
+		pt1->col = (env->map_y > (int)env->pos_y > 0 ? 0x00FF00 / (env->side + 1)
+				: 0x0000FF / (env->side + 1));
+		pt2->col = (env->map_y > (int)env->pos_y > 0 ? 0x00FF00 / (env->side + 1)
+				: 0x0000FF / (env->side + 1));
+	}
+}
+
 static void	print_wall(t_env *env, int x)
 {
 	int		height;
 	double	dist;
-	t_pt	pt1;
-	t_pt	pt2;
+	t_pt	*pt1;
+	t_pt	*pt2;
 
+	pt1 = (t_pt *)ft_memalloc(sizeof(t_pt));
+	pt2 = (t_pt *)ft_memalloc(sizeof(t_pt));
 	if (env->side == 0)
 		dist = (env->map_x - env->pos_x + (1 - env->step_x) / 2) / env->ray_x;
 	else
 		dist = (env->map_y - env->pos_y + (1 - env->step_y) / 2) / env->ray_y;
 	height = (int)(env->sy / dist);
-	pt1.x = x;
-	pt2.x = x;
-	if (env->side == 0)
-	{
-		pt1.col = (env->map_x > (int)env->pos_x > 0 ? 0xFF0000 / (env->side + 1)
-				: 0x00FF00 / (env->side + 1));
-		pt2.col = (env->map_x > (int)env->pos_x > 0 ? 0xFF0000 / (env->side + 1)
-				: 0x00FF00 / (env->side + 1));
-	}
-	else
-	{
-		pt1.col = (env->map_y > (int)env->pos_y > 0 ? 0x00FF00 / (env->side + 1)
-				: 0x0000FF / (env->side + 1));
-		pt2.col = (env->map_y > (int)env->pos_y > 0 ? 0x00FF00 / (env->side + 1)
-				: 0x0000FF / (env->side + 1));
-	}
-	pt1.y = -height / 3 + env->sy / 3;
-	pt1.y = (pt1.y > 0 ? pt1.y : 0);
-	pt2.y = height / 3 + env->sy / 3;
-	pt2.y = (pt2.y > 0 ? pt2.y : 0);
+	color_wall(env, pt1, pt2);
+	pt1->x = x;
+	pt2->x = x;
+	pt1->y = -height / 3 + env->sy / 3;
+	pt1->y = (pt1->y > 0 ? pt1->y : 0);
+	pt2->y = height / 3 + env->sy / 3;
+	pt2->y = (pt2->y > 0 ? pt2->y : 0);
 	line(pt1, pt2, env);
+	ft_memdel((void **)&pt1);
+	ft_memdel((void **)&pt2);
 }
 
 void		raycaster(t_env *env)
