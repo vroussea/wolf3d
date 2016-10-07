@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 15:29:18 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/06 22:26:28 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/07 17:31:49 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ static void	color_wall(t_env *env, t_pt *pt1, t_pt *pt2)
 {
 	if (env->side == 0)
 	{
-		pt1->col = (env->map_x > (int)env->pos_x > 0 ? 0xFF0000 / (env->side + 1)
-				: 0x00FF00 / (env->side + 1));
-		pt2->col = (env->map_x > (int)env->pos_x > 0 ? 0xFF0000 / (env->side + 1)
-				: 0x00FF00 / (env->side + 1));
+		pt1->col = (env->map_x > (int)env->pos_x > 0 ? 0xDD0000
+				: 0xFF8000);
+		pt2->col = (env->map_x > (int)env->pos_x > 0 ? 0xDD0000
+				: 0xFF8000);
 	}
 	else
 	{
-		pt1->col = (env->map_y > (int)env->pos_y > 0 ? 0x00FF00 / (env->side + 1)
-				: 0x0000FF / (env->side + 1));
-		pt2->col = (env->map_y > (int)env->pos_y > 0 ? 0x00FF00 / (env->side + 1)
-				: 0x0000FF / (env->side + 1));
+		pt1->col = (env->map_y > (int)env->pos_y > 0 ? 0x00DD00
+				: 0x006600);
+		pt2->col = (env->map_y > (int)env->pos_y > 0 ? 0x00DD00
+				: 0x006600);
 	}
 }
 
@@ -49,9 +49,9 @@ static void	print_wall(t_env *env, int x)
 	color_wall(env, pt1, pt2);
 	pt1->x = x;
 	pt2->x = x;
-	pt1->y = -height / 3 + env->sy / 3;
+	pt1->y = (double)(-height / 1.6) + (double)(env->sy / 2.5);
 	pt1->y = (pt1->y > 0 ? pt1->y : 0);
-	pt2->y = height / 3 + env->sy / 3;
+	pt2->y = (double)(height / 1.6) + (double)(env->sy / 2.5);
 	pt2->y = (pt2->y > 0 ? pt2->y : 0);
 	line(pt1, pt2, env);
 	ft_memdel((void **)&pt1);

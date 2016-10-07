@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/20 15:56:19 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/06 22:27:06 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/07 17:27:41 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ int				start_loc(t_env *env, int ty, int tx);
 void			raycaster(t_env *env);
 void			dda(t_env *env);
 int				test_map_closed(t_env *env);
+void			sky_ground(t_env *env);
 
 #endif
