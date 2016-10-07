@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/07 18:48:41 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/07 17:02:41 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/07 17:40:12 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,10 @@ static void	zoom(t_env *env, int keycode)
 		env->smap -= (env->smap > 20 ? 12 : 0);
 }
 
-/*static void	pos(t_env *env, int keycode)
+void		collisions(t_env *env, int keycode)
 {
-	if (keycode == 125)
-	{
-		env->pos_x += 0.075 * cos(env->angle);
-		env->pos_y += 0.075 * sin(env->angle);
-	}
-	else if (keycode == 126)
-	{
-		env->pos_x -= 0.075 * cos(env->angle);
-		env->pos_y -= 0.075 * sin(env->angle);
-	}
-}*/
-
-void        collisions(t_env *env, int keycode)
-{
-	double  move_x;
-	double  move_y;
+	double	move_x;
+	double	move_y;
 
 	if (keycode == 125)
 	{
@@ -77,8 +63,6 @@ int			key_funct(int keycode, t_env *env)
 		zoom(env, keycode);
 	if (keycode == 125 || keycode == 126)
 		collisions(env, keycode);
-	//	if (keycode == 125 || keycode == 126)
-	//		pos(env, keycode);
 	if (keycode == 123 || keycode == 124)
 		rotation(env, keycode);
 	caller(env);

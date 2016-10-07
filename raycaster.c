@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/29 15:29:18 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/07 17:31:49 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/07 17:37:32 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ void		raycaster(t_env *env)
 		ray_y = env->dir_y + env->plane_y * crtray;
 		env->ray_x = ray_x;
 		env->ray_y = ray_y;
-		env->distnext_x = (ray_x != 0 ? sqrt(1 + (ray_y * ray_y) / (ray_x * ray_x)) : 0);
-		env->distnext_y = (ray_y != 0 ? sqrt(1 + (ray_x * ray_x) / (ray_y * ray_y)) : 0);
+		env->distnext_x = (ray_x != 0 ?
+				sqrt(1 + (ray_y * ray_y) / (ray_x * ray_x)) : 0);
+		env->distnext_y = (ray_y != 0 ?
+				sqrt(1 + (ray_x * ray_x) / (ray_y * ray_y)) : 0);
 		dda(env);
 		print_wall(env, x);
 		x++;
@@ -134,9 +136,4 @@ void		dda(t_env *env)
 		if (env->map[env->map_y][env->map_x + 1] > 0)
 			hit = 1;
 	}
-	pixel((env->map_x + 0.5) * env->smap + 10, (env->map_y + 0.5) * env->smap + 10, 0xFF0000, env);
-	pixel((env->map_x + 0.5) * env->smap + 11, (env->map_y + 0.5) * env->smap + 10, 0xFF0000, env);
-	pixel((env->map_x + 0.5) * env->smap + 9, (env->map_y + 0.5) * env->smap + 10, 0xFF0000, env);
-	pixel((env->map_x + 0.5) * env->smap + 10, (env->map_y + 0.5) * env->smap + 11, 0xFF0000, env);
-	pixel((env->map_x + 0.5) * env->smap + 10, (env->map_y + 0.5) * env->smap + 9, 0xFF0000, env);
 }

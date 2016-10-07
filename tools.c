@@ -6,7 +6,7 @@
 /*   By: vroussea <vroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/21 18:40:34 by vroussea          #+#    #+#             */
-/*   Updated: 2016/10/07 17:33:09 by vroussea         ###   ########.fr       */
+/*   Updated: 2016/10/07 17:39:21 by vroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-void    pixel(int x, int y, int col, t_env *env)
+void		pixel(int x, int y, int col, t_env *env)
 {
 	if (x > 0 && x < env->sx && y > 0 && y < env->sy)
 		ft_memcpy(&env->meml[(x - 1) * 4 + (y - 1) * env->sizel], &col, 4);
